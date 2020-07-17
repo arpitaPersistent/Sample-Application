@@ -1,0 +1,37 @@
+  .card-container {
+    justify-content: left;
+    border: 2px solid #6d37a2;
+    padding: 16px;
+    .card {
+      border-radius: 4px;
+      border: 1px solid #eee;
+      background-color: #fafafa;
+      margin: 0 2px 10px;
+      padding: 10px;
+      display: block;
+      flex-direction: row;
+      justify-content: left;
+      .card-title {
+        color: #000;
+      }
+      h4 a {
+        color: #000;
+      }
+
+      .del_btn {
+        padding: 0;
+        border: none;
+        right: 35px;
+        position: absolute;
+      }
+      .del_btn:active, .del_btn:hover, .del_btn span:active, .del_btn span:hover, .del_btn span:focus, .del_btn:focus {
+        border: none;
+      } 
+    }    
+    .linkDiv {
+      padding: 16px;
+      text-decoration: underline;
+    }
+  }
+
+  

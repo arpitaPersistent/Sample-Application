@@ -1,0 +1,14 @@
+<div class="form-container">
+    <form [formGroup]="listForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+        <label for="listName">List Name</label>
+        <input type="text" class="form-control" formControlName="listName" required>
+        </div>
+        <div *ngIf="listForm.get('listName').hasError('required') && submitted" class="alert alert-danger">
+            List Name is required
+        </div>
+        <div class="alert alert-danger" *ngIf="same">{{sameName}}</div>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" (click)="back()" class="btn btn-success">Back</button>
+    </form>
+</div>

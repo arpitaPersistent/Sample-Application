@@ -1,0 +1,24 @@
+
+    <div class="card-container col-sm-12" >
+        <ng-container *ngIf="listArray?.length > 0">
+        <div class="col-sm-4" *ngFor="let item of listArray let i=index;" cdkDrag>
+            <div class="card"> 
+                <h4><a routerLink="add-list/{{item.list}}">{{item.list | titlecase }}</a>
+                    <button type="button" (click)="deleteList(item.list)" class="btn btn-default del_btn" aria-label="Left Align">  
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>  
+                    </button>
+                </h4>
+                <div class="card" *ngFor = "let el of item.cards" >
+                <a href="add-card/{{el.cardName}}" class="card-title">{{el.cardName | titlecase }}
+                </a>
+                <button type="button" (click)="deleteCard(el.cardName)" class="btn btn-default del_btn" aria-label="Left Align">  
+                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>  
+                </button>
+                </div>
+                <a href="add-card;list={{item.list}}" class="linkDiv">Add new Card</a>
+            </div>
+        </div>  
+        </ng-container>    
+        <a href="add-list" class="linkDiv">Add another List</a>
+    </div>
+    

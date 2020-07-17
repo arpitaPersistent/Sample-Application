@@ -1,0 +1,25 @@
+<div class="form-container">
+    <form [formGroup]="cardForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+            <label for="cardName">Task/Card Name</label>
+            <input type="text" class="form-control" formControlName="cardName">
+        </div>
+        <div *ngIf="cardForm.get('cardName').hasError('required') && submitted" class="alert alert-danger">
+            Card Name is required
+        </div>
+        <div class="alert alert-danger" *ngIf="same">{{sameName}}</div>
+        <div class="form-group">
+            <label for="listName">List</label>
+            <select formControlName="listName" class="form-control" required>
+                <option *ngFor="let item of list;" [ngValue]="item" [selected]="item =='listName'" >
+                    {{item }}
+                </option>
+            </select>
+        </div>
+        <div *ngIf="cardForm.get('listName').hasError('required') && cardForm.get('listName').touched" class="alert alert-danger">
+            List Name is required
+        </div>
+        <button type="submit" class="btn btn-success">Submit</button>
+        <button type="button" (click)="back()" class="btn btn-success">Back</button>
+    </form>
+</div>
