@@ -11,7 +11,7 @@
         <div class="form-group">
             <label for="listName">List</label>
             <select formControlName="listName" class="form-control" required>
-                <option *ngFor="let item of list;" [ngValue]="item" [selected]="item =='listName'" >
+                <option *ngFor="let item of list;" value ="{{item}}" >
                     {{item }}
                 </option>
             </select>

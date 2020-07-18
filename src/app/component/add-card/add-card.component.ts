@@ -38,16 +38,18 @@ export class AddCardComponent implements OnInit, OnDestroy {
       listName: [null, [Validators.required]]
     });
     this.sub = this.route.params.subscribe(params => {
-      this.cardName = params.cardName;
-      this.oldName = this.cardName;
-      this.card = this.cardService.getCard();
+      if (params) {
+        this.cardName = params.cardName;
+        this.oldName = this.cardName;
+        this.card = this.cardService.getCard();
 
-      const data = this.card.find(el => el.cardName === this.cardName);
-      if (data) {
-        this.listName = data.list;
-        this.cardForm.patchValue({ cardName: this.cardName, listName: this.listName});
+        const data = this.card.find(el => el.cardName === this.cardName);
+        if (data) {
+          this.listName = data.list;
+          this.cardForm.patchValue({ cardName: this.cardName, listName: this.listName});
+        }
+        // In a real app: dispatch action to load the details here.
       }
-      // In a real app: dispatch action to load the details here.
     });
     if (this.route.snapshot.paramMap.get('list')) {
       this.cardForm.patchValue({ listName: this.route.snapshot.paramMap.get('list')});

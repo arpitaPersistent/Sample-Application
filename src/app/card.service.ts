@@ -16,7 +16,7 @@ export class CardService {
   getCard(): Array<any> {
     const item = this.storage.get('card');
     if (item !== null && item !== '') {
-      this.Card = JSON.parse(item);
+      this.Card = JSON.parse(item); //// get card array
     }
     return this.Card;
   }
@@ -24,13 +24,13 @@ export class CardService {
   /*
   ** Add Cards to the list   **
   */
-  addCard(cardItem: any, oldName: string) {
+  addCard(cardItem: any, oldName: string = '') {
     const item = this.storage.get('card');
-    if (item !== null && item !== '') {
+    if (item !== null && item !== '' && item !== null) {
       this.Card = JSON.parse(item);
-      if (this.Card.length > 0) {
+      if (this.Card.length > 0) { 
         const same = this.Card.some((el) => el.cardName === cardItem.cardName );
-        if (same) { return false; }
+        if (same) { return false; } // check for duplicate name
       }
       if (oldName) {
         this.Card.forEach((el, i) => {
@@ -39,10 +39,10 @@ export class CardService {
           }
         });
       } else {
-        this.Card.push(cardItem);
+        this.Card.push(cardItem); // add new card
       }
     } else {
-      this.Card.push(cardItem);
+      this.Card.push(cardItem); // add new card
     }
     this.storage.setByStringify('card', this.Card);
     this.router.navigateByUrl('');
@@ -56,7 +56,7 @@ export class CardService {
     if (confirm('Are you sure to delete list ' + cardName)) {
       cardArr.forEach((el, item) => {
         if (el.cardName === cardName) {
-          cardArr.splice(item, 1);
+          cardArr.splice(item, 1); // remove card
           this.storage.setByStringify('card', cardArr);
         }
       });

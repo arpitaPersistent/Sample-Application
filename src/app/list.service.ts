@@ -9,7 +9,7 @@ import { SessionHelper } from './helper/session-helper';
 @Injectable({ providedIn: 'root' })
 export class ListService {
 
-  private List: Array<any> = [];  // URL to web api
+  List: Array<any> = [];  // URL to web api
 
 
   constructor(private router: Router, private cardService: CardService, private storage: SessionHelper) { }
@@ -18,9 +18,8 @@ export class ListService {
 
   getList() {
     const list = this.storage.get('list');
-    console.log(list, 'getList');
     if (list) {
-      this.List = list.split(', ');
+      this.List = list.split(', '); // get list array
     }
     return this.List;
   }
@@ -41,12 +40,11 @@ export class ListService {
           }
         });
       }
-      return {
+      return { // create object for lists and cards
         list: listName,
         cards: cardArray ? cardArray : undefined
       };
     });
-    console.log(results, 'results');
     return results;
   }
 
@@ -55,17 +53,17 @@ export class ListService {
   addList(name: string, oldVal = '') {
     let item = this.storage.get('list');
 
-    if (item !== '' && item !== null) {
-      if (oldVal !== '' && oldVal !== undefined && oldVal !== null) {
-        const itemlist = item.split(', ');
+    if (item !== '' && item !== null) { // checking stored list data not null
+      if (oldVal !== '' && oldVal !== undefined && oldVal !== null) { // check oldName if not null then update
+        const itemlist = item.split(', '); // converting string into array
         itemlist.forEach((element, i) => {
           if (element === oldVal) {
-            itemlist[i] = name;
+            itemlist[i] = name; // update new name for the list
           }
         });
         item = itemlist.join(', ');
         this.storage.set('list', item);
-      } else {
+      } else {  // if oldName is null then insert
         this.List = item.split(', ');
         if (this.List.length !== 0 ) {
           const same = this.List.some((el) => el === name );
@@ -74,10 +72,9 @@ export class ListService {
         this.List.push(name);
         this.storage.set('list', this.List.join(', '));
       }
-    } else {
+    } else { // insert if no data found
       this.List.push(name);
       this.storage.set('list', this.List.join(''));
-      console.log(this.List.join(''),'utem3');
     }
     this.router.navigateByUrl('');
   }
@@ -89,13 +86,13 @@ export class ListService {
   deleteList(listName: string) {
     const listArr = this.getList();
     const cardArr = this.cardService.getCard();
-    if (confirm('Are you sure to delete list '+ listName)) {
+    if (confirm('Are you sure to delete list ' + listName)) {
       listArr.forEach((el, i) => {
         if (el === listName) {
-          listArr.splice(i, 1);
+          listArr.splice(i, 1); // delete list if matched
           cardArr.forEach((card, item) => {
             if (card.list === listName) {
-              cardArr.splice(item, 1);
+              cardArr.splice(item, 1); // delete card in the list
               this.storage.setByStringify('card', cardArr);
             }
           });
